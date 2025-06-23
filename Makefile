@@ -8,7 +8,7 @@ GOTEST=$(GOCMD) test
 GOGET=$(GOCMD) get
 GOFMT=gofmt
 GOVET=$(GOCMD) vet
-GOLINT=golint
+GOLINT=golangci-lint
 
 # Package name
 PACKAGE=github.com/cehbz/autobrr
@@ -16,7 +16,7 @@ PACKAGE=github.com/cehbz/autobrr
 # Test flags
 TEST_FLAGS=-v -race -coverprofile=coverage.out
 
-.PHONY: all build clean test coverage fmt vet lint install
+.PHONY: all build clean test coverage fmt vet lint install deps check help
 
 # Default target
 all: test build
@@ -53,11 +53,11 @@ vet:
 	@echo "Running go vet..."
 	$(GOVET) ./...
 
-# Run golint (if installed)
+# Run golangci-lint
 lint:
-	@echo "Running golint..."
-	@which golint > /dev/null || (echo "golint not installed. Install with: go install golang.org/x/lint/golint@latest" && exit 1)
-	$(GOLINT) ./...
+	@echo "Running golangci-lint..."
+	@which $(GOLINT) > /dev/null || (echo "golangci-lint not installed, please install it." && exit 1)
+	$(GOLINT) run ./...
 
 # Install dependencies
 deps:
@@ -82,7 +82,7 @@ help:
 	@echo "  coverage - Generate test coverage report"
 	@echo "  fmt      - Format code"
 	@echo "  vet      - Run go vet"
-	@echo "  lint     - Run golint"
+	@echo "  lint     - Run golangci-lint"
 	@echo "  deps     - Install dependencies"
 	@echo "  install  - Prepare library for use"
 	@echo "  check    - Run all checks (fmt, vet, lint, test)"

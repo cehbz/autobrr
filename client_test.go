@@ -40,19 +40,18 @@ func TestGetFilters(t *testing.T) {
 			Name:     "Test Filter 1",
 			Enabled:  true,
 			Priority: 100,
-			Shows:    []string{"Test Show"},
+			Shows:    "Test Show",
 		},
 		{
 			ID:       2,
 			Name:     "Test Filter 2",
 			Enabled:  false,
 			Priority: 200,
-			Shows:    []string{"Another Show"},
+			Shows:    "Another Show",
 		},
 	}
 
-	response := FilterListResponse{Data: mockFilters}
-	responseBody, _ := json.Marshal(response)
+	responseBody, _ := json.Marshal(mockFilters)
 
 	// Mock successful response
 	endpointResponses := map[string]mockResponse{
@@ -92,7 +91,7 @@ func TestGetFilter(t *testing.T) {
 		Name:        "Test Filter",
 		Enabled:     true,
 		Priority:    100,
-		Shows:       []string{"Test Show"},
+		Shows:       "Test Show",
 		Resolutions: []string{"1080p"},
 		Actions: []Action{
 			{
@@ -144,7 +143,7 @@ func TestCreateFilter(t *testing.T) {
 		Name:        "New Filter",
 		Enabled:     true,
 		Priority:    100,
-		Shows:       []string{"New Show"},
+		Shows:       "New Show",
 		Resolutions: []string{"1080p", "2160p"},
 		Actions: []Action{
 			{
@@ -207,7 +206,7 @@ func TestUpdateFilter(t *testing.T) {
 		Name:        "Updated Filter",
 		Enabled:     false,
 		Priority:    200,
-		Shows:       []string{"Updated Show"},
+		Shows:       "Updated Show",
 		Resolutions: []string{"720p"},
 	}
 

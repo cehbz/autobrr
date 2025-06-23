@@ -18,92 +18,155 @@ type Client struct {
 
 // Filter represents an Autobrr filter
 type Filter struct {
-	ID                    int64            `json:"id,omitempty"`
-	Name                  string           `json:"name"`
-	Enabled               bool             `json:"enabled"`
-	Priority              int              `json:"priority"`
-	SmartEpisode          bool             `json:"smart_episode"`
-	Shows                 []string         `json:"shows,omitempty"`
-	Resolutions           []string         `json:"resolutions,omitempty"`
-	Sources               []string         `json:"sources,omitempty"`
-	Codecs                []string         `json:"codecs,omitempty"`
-	Containers            []string         `json:"containers,omitempty"`
-	MatchReleases         string           `json:"match_releases,omitempty"`
-	ExceptReleases        string           `json:"except_releases,omitempty"`
-	Years                 string           `json:"years,omitempty"`
-	Tags                  string           `json:"tags,omitempty"`
-	ExceptTags            string           `json:"except_tags,omitempty"`
-	MatchReleaseGroups    string           `json:"match_release_groups,omitempty"`
-	ExceptReleaseGroups   string           `json:"except_release_groups,omitempty"`
-	MaxSize               string           `json:"max_size,omitempty"`
-	MinSize               string           `json:"min_size,omitempty"`
-	Actions               []Action         `json:"actions,omitempty"`
-	External              []ExternalFilter `json:"external,omitempty"`
-	IndexerIDs            []int            `json:"indexer_ids,omitempty"`
-	MatchCategories       string           `json:"match_categories,omitempty"`
-	ExceptCategories      string           `json:"except_categories,omitempty"`
-	MatchUploaders        string           `json:"match_uploaders,omitempty"`
-	ExceptUploaders       string           `json:"except_uploaders,omitempty"`
-	MatchLanguage         []string         `json:"match_language,omitempty"`
-	ExceptLanguage        []string         `json:"except_language,omitempty"`
-	UseRegex              bool             `json:"use_regex"`
-	UseRegexReleaseGroups bool             `json:"use_regex_release_groups"`
-	Scene                 bool             `json:"scene"`
-	Origins               []string         `json:"origins,omitempty"`
-	ExceptOrigins         []string         `json:"except_origins,omitempty"`
-	Bonus                 []string         `json:"bonus,omitempty"`
-	Freeleech             bool             `json:"freeleech"`
-	FreeleechPercent      string           `json:"freeleech_percent,omitempty"`
-	Description           string           `json:"description,omitempty"`
-	CreatedAt             string           `json:"created_at,omitempty"`
-	UpdatedAt             string           `json:"updated_at,omitempty"`
+	ID        int    `json:"id,omitempty"`
+	Name      string `json:"name"`
+	Enabled   bool   `json:"enabled"`
+	CreatedAt string `json:"created_at,omitempty"`
+	UpdatedAt string `json:"updated_at,omitempty"`
+	Priority  int    `json:"priority"`
+	Shows     string `json:"shows,omitempty"`
+	Seasons   string `json:"seasons,omitempty"`
+
+	// Match
+	AnnounceTypes       []string `json:"announce_types,omitempty"`
+	Resolutions         []string `json:"resolutions,omitempty"`
+	Sources             []string `json:"sources,omitempty"`
+	Codecs              []string `json:"codecs,omitempty"`
+	Containers          []string `json:"containers,omitempty"`
+	MatchReleases       string   `json:"match_releases,omitempty"`
+	ExceptReleases      string   `json:"except_releases,omitempty"`
+	Years               string   `json:"years,omitempty"`
+	Tags                string   `json:"tags,omitempty"`
+	ExceptTags          string   `json:"except_tags,omitempty"`
+	MatchReleaseGroups  string   `json:"match_release_groups,omitempty"`
+	ExceptReleaseGroups string   `json:"except_release_groups,omitempty"`
+
+	// Size
+	MaxSize string `json:"max_size,omitempty"`
+	MinSize string `json:"min_size,omitempty"`
+
+	// Indexers
+	IndexerIDs []int `json:"indexer_ids,omitempty"`
+
+	// Categories
+	MatchCategories  string `json:"match_categories,omitempty"`
+	ExceptCategories string `json:"except_categories,omitempty"`
+
+	// Uploaders
+	MatchUploaders  string `json:"match_uploaders,omitempty"`
+	ExceptUploaders string `json:"except_uploaders,omitempty"`
+
+	// Language
+	MatchLanguage  []string `json:"match_language,omitempty"`
+	ExceptLanguage []string `json:"except_language,omitempty"`
+
+	// Regex
+	UseRegex              bool `json:"use_regex"`
+	UseRegexReleaseGroups bool `json:"use_regex_release_groups"`
+
+	// Other
+	Scene         bool     `json:"scene"`
+	Origins       []string `json:"origins,omitempty"`
+	ExceptOrigins []string `json:"except_origins,omitempty"`
+	Bonus         []string `json:"bonus,omitempty"`
+
+	// Freeleech
+	Freeleech        bool   `json:"freeleech"`
+	FreeleechPercent string `json:"freeleech_percent,omitempty"`
+
+	// Other
+	Description string `json:"description,omitempty"`
+
+	SmartEpisode bool `json:"smart_episode"`
+
+	ExceptOther []string `json:"except_other,omitempty"`
+
+	MaxDownloads     int    `json:"max_downloads,omitempty"`
+	MaxDownloadsUnit string `json:"max_downloads_unit,omitempty"`
+
+	ActionsCount        int `json:"actions_count,omitempty"`
+	ActionsEnabledCount int `json:"actions_enabled_count,omitempty"`
+
+	IsAutoUpdated bool `json:"is_auto_updated,omitempty"`
+
+	ReleaseProfileDuplicate interface{} `json:"release_profile_duplicate,omitempty"`
+
+	// Relations
+	Actions  []Action   `json:"actions,omitempty"`
+	External []External `json:"external,omitempty"`
+	Indexers []Indexer  `json:"indexers,omitempty"`
+
+	Downloads *Downloads `json:"downloads,omitempty"`
 }
 
 // Action represents an action to be taken when a filter matches
 type Action struct {
-	ID                   int64    `json:"id,omitempty"`
-	Name                 string   `json:"name"`
-	Type                 string   `json:"type"`
-	Enabled              bool     `json:"enabled"`
-	ExecCmd              string   `json:"exec_cmd,omitempty"`
-	ExecArgs             string   `json:"exec_args,omitempty"`
-	WatchFolder          string   `json:"watch_folder,omitempty"`
-	Category             string   `json:"category,omitempty"`
-	Tags                 string   `json:"tags,omitempty"`
-	Label                string   `json:"label,omitempty"`
-	SavePath             string   `json:"save_path,omitempty"`
-	Paused               bool     `json:"paused"`
-	IgnoreRules          bool     `json:"ignore_rules"`
-	SkipHashCheck        bool     `json:"skip_hash_check"`
-	ContentLayout        string   `json:"content_layout,omitempty"`
-	FirstLastPiecePrio   bool     `json:"first_last_piece_prio"`
-	Priority             string   `json:"priority,omitempty"`
-	LimitDownloadSpeed   int64    `json:"limit_download_speed,omitempty"`
-	LimitUploadSpeed     int64    `json:"limit_upload_speed,omitempty"`
-	LimitRatio           float64  `json:"limit_ratio,omitempty"`
-	LimitSeedTime        int64    `json:"limit_seed_time,omitempty"`
-	ReannounceInterval   int64    `json:"reannounce_interval,omitempty"`
-	ClientID             int      `json:"client_id,omitempty"`
-	WebhookHost          string   `json:"webhook_host,omitempty"`
-	WebhookType          string   `json:"webhook_type,omitempty"`
-	WebhookMethod        string   `json:"webhook_method,omitempty"`
-	WebhookData          string   `json:"webhook_data,omitempty"`
-	WebhookHeaders       []string `json:"webhook_headers,omitempty"`
-	ExternalDownloadOnly bool     `json:"external_download_only"`
-	FilterID             int64    `json:"filter_id,omitempty"`
+	ID                    int64    `json:"id,omitempty"`
+	Name                  string   `json:"name"`
+	Type                  string   `json:"type"`
+	Enabled               bool     `json:"enabled"`
+	Category              string   `json:"category,omitempty"`
+	ReannounceInterval    int64    `json:"reannounce_interval,omitempty"`
+	ReannounceMaxAttempts int64    `json:"reannounce_max_attempts,omitempty"`
+	ClientID              int      `json:"client_id,omitempty"`
+	ExecCmd               string   `json:"exec_cmd,omitempty"`
+	ExecArgs              string   `json:"exec_args,omitempty"`
+	WatchFolder           string   `json:"watch_folder,omitempty"`
+	Tags                  string   `json:"tags,omitempty"`
+	Label                 string   `json:"label,omitempty"`
+	SavePath              string   `json:"save_path,omitempty"`
+	Paused                bool     `json:"paused"`
+	IgnoreRules           bool     `json:"ignore_rules"`
+	SkipHashCheck         bool     `json:"skip_hash_check"`
+	ContentLayout         string   `json:"content_layout,omitempty"`
+	FirstLastPiecePrio    bool     `json:"first_last_piece_prio"`
+	Priority              string   `json:"priority,omitempty"`
+	LimitDownloadSpeed    int64    `json:"limit_download_speed,omitempty"`
+	LimitUploadSpeed      int64    `json:"limit_upload_speed,omitempty"`
+	LimitRatio            float64  `json:"limit_ratio,omitempty"`
+	LimitSeedTime         int64    `json:"limit_seed_time,omitempty"`
+	WebhookHost           string   `json:"webhook_host,omitempty"`
+	WebhookType           string   `json:"webhook_type,omitempty"`
+	WebhookMethod         string   `json:"webhook_method,omitempty"`
+	WebhookData           string   `json:"webhook_data,omitempty"`
+	WebhookHeaders        []string `json:"webhook_headers,omitempty"`
+	ExternalDownloadOnly  bool     `json:"external_download_only"`
+	FilterID              int64    `json:"filter_id,omitempty"`
 }
 
-// ExternalFilter represents external filter criteria
-type ExternalFilter struct {
-	ID               int64  `json:"id,omitempty"`
-	Name             string `json:"name"`
-	Index            int    `json:"index"`
-	Type             string `json:"type"`
-	Value            string `json:"value"`
-	ExecCmd          string `json:"exec_cmd,omitempty"`
-	ExecArgs         string `json:"exec_args,omitempty"`
-	ExecExpectOutput string `json:"exec_expect_output,omitempty"`
-	FilterID         int64  `json:"filter_id,omitempty"`
+// External represents an external filter.
+type External struct {
+	ID       int    `json:"id,omitempty"`
+	Name     string `json:"name"`
+	Index    int    `json:"index"`
+	Type     string `json:"type"`
+	Enabled  bool   `json:"enabled"`
+	ExecCmd  string `json:"exec_cmd,omitempty"`
+	ExecArgs string `json:"exec_args,omitempty"`
+}
+
+// Indexer represents an indexer.
+type Indexer struct {
+	ID                 int                    `json:"id"`
+	Name               string                 `json:"name"`
+	Identifier         string                 `json:"identifier"`
+	IdentifierExternal string                 `json:"identifier_external"`
+	Enabled            bool                   `json:"enabled"`
+	Implementation     string                 `json:"implementation"`
+	BaseURL            string                 `json:"base_url"`
+	UseProxy           bool                   `json:"use_proxy"`
+	Proxy              interface{}            `json:"proxy"`
+	ProxyID            int                    `json:"proxy_id"`
+	Settings           map[string]interface{} `json:"settings"`
+}
+
+// Downloads represents download statistics.
+type Downloads struct {
+	HourCount  int `json:"hour_count"`
+	DayCount   int `json:"day_count"`
+	WeekCount  int `json:"week_count"`
+	MonthCount int `json:"month_count"`
+	TotalCount int `json:"total_count"`
 }
 
 // FilterListResponse represents the response from listing filters
@@ -137,12 +200,12 @@ func (c *Client) GetFilters() ([]Filter, error) {
 		return nil, fmt.Errorf("get filters error: %v", err)
 	}
 
-	var response FilterListResponse
+	var response []Filter
 	if err := json.Unmarshal(respData, &response); err != nil {
 		return nil, fmt.Errorf("failed to decode filters response: %v", err)
 	}
 
-	return response.Data, nil
+	return response, nil
 }
 
 // GetFilter retrieves a specific filter by ID
