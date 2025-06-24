@@ -26,6 +26,7 @@ type Filter struct {
 	Priority  int    `json:"priority"`
 	Shows     string `json:"shows,omitempty"`
 	Seasons   string `json:"seasons,omitempty"`
+	Episodes  string `json:"episodes,omitempty"`
 
 	// Match
 	AnnounceTypes       []string `json:"announce_types,omitempty"`
